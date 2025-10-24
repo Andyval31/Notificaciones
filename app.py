@@ -16,8 +16,8 @@ app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 mail = Mail(app)
 
-@app.route('/notificaciones', methods=['POST'])
-def notificaciones():
+@app.route('/notify', methods=['POST'])
+def notify():
     data = request.json
     msg = Message("Notificación",
                   sender=app.config['MAIL_USERNAME'],
