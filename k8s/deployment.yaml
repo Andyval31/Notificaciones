@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificaciones
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notificaciones
+  template:
+    metadata:
+      labels:
+        app: notificaciones
+    spec:
+      containers:
+        - name: notificaciones
+          image: 548845654748.dkr.ecr.us-east-1.amazonaws.com/notification-service:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          env:
+            - name: MAIL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: notificaciones-secret
+                  key: MAIL_USERNAME
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: notificaciones-secret
+                  key: MAIL_PASSWORD
