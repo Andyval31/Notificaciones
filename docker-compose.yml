@@ -1,0 +1,19 @@
+
+version: "3.9"
+
+services:
+  notificaciones:
+    build: .
+    container_name: notificaciones-service
+    ports:
+      - "5001:5000"
+    environment:
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    external: true  # ← Usa la red compartida externa
